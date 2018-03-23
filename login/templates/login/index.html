@@ -1,0 +1,36 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
+{% if error_message %}
+<div class="error">
+  <h4>{{ error_message }}</h4>
+  <input type="submit" value="Ok." onclick="this.parentElement.style.display='none';">
+</div>
+{% endif %}
+
+<div class="container text-center">
+  <h1>Login</h1>
+  <form class="form-style" action="{% url 'blog_authenticate' %}" method="post">
+    {% csrf_token %}
+    <label> Username:</label> <input type="text" name="username" placeholder="username" required><br>
+    <label> Password:</label> <input type="password" name="password" placeholder="password" required>
+    <div>
+      <input type="submit" name="submit">
+    </div>
+  </form>
+</div>
+
+<div class="container text-center">
+  <h1>Create A New Account</h1>
+  <form class="form-style" action="{% url 'create_account' %}" method="post">
+  {% csrf_token %}
+    <label> Username:</label> <input type="text" name="username" placeholder="username" required><br>
+    <label> Password:</label> <input type="password" name="password" placeholder="password" required><br>
+    <label> Re-enter Password:</label> <input type="password" name="password_verification" placeholder="re-enter password" required>
+    <div>
+      <input type="submit" name="submit">
+    </div>
+  </form>
+</div>

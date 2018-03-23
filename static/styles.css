@@ -1,0 +1,38 @@
+body{
+  background-color: lightgrey
+}
+
+.form-style label{
+    display: inline-block;
+    float: center;
+    clear: left;
+    width: 250px;
+    text-align: right;
+}
+
+.form-style input[type="text"], .form-style input[type="password"]{
+  display: inline-block;
+  float: center;
+  width: 300px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.form-style div{
+  display: block;
+  clear: left;
+  float: center;
+  text-align: center;
+}
+
+.error{
+  width: 40%;
+  margin: auto;
+  color: red;
+  border: 5px;
+  background-color: white;
+  border-color: red;
+  text-align: center;
+}
+
+

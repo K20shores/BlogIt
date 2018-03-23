@@ -8,9 +8,8 @@
     <h1 class="display-4">BlogIt</h1>
     <hr class="my-4">
     {% if user %}
-    <p class="lead">
-      <a class="btn btn-primary btn-lg" href="/login/blog_logout" role="button">Logout {{ user.username }}</a>
-    </p>
+    <a class="btn btn-primary btn-lg" href="/login/blog_logout" role="button">Logout {{ user.username }}</a>
+    <a class="btn btn-primary btn-lg" href="/blog/" role="button">Create Blog</a>
     {% else %}
     <p class="lead">
       <a class="btn btn-primary btn-lg" href="/login" role="button">Login</a>
@@ -18,3 +17,18 @@
     {% endif %}
   </div>
 </div>
+
+{% if blogs %}
+    {% for blog in blogs %}
+      <div class="container text-left">
+        <h3>{{ blog.blog_title }}</h2>
+        <hr class="my-3">
+        <p>{{ blog.blog_text }}</p>
+        <hr class="my-1">
+        <p>{{ blog.pub_date }}</p>
+        <br>
+      </div>
+    {% endfor %}
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}

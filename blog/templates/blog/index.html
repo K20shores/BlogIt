@@ -1,0 +1,27 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
+<div class="container">
+  <div class="jumbotron">
+    <h1 class="display-4">BlogIt</h1>
+    <hr class="my-4">
+    <p class="lead">
+      <a class="btn btn-primary btn-lg" href="/" role="button">Home</a>
+    </p>
+  </div>
+</div>
+
+<div class="container text-center">
+  <h1>Create Blog</h1>
+  <form class="form-style" action="{% url 'create' %}" method="post">
+    {% csrf_token %}
+    <label> Title:</label> <input type="text" name="blog_title" placeholder="username" required><br>
+    <textarea rows="10" cols="100" maxlength="1000" name="blog_text" required>
+    </textarea>
+    <div>
+      <input type="submit" name="submit">
+    </div>
+  </form>
+</div>

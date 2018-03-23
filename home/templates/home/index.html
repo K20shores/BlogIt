@@ -21,14 +21,24 @@
 {% if blogs %}
     {% for blog in blogs %}
       <div class="container text-left">
-        <h3>{{ blog.blog_title }}</h2>
+        <h3>{{ blog.blog_title }}</h3>
+        <h4>Author: {{ blog.blog_author.username }}</h4>
         <hr class="my-3">
         <p>{{ blog.blog_text }}</p>
         <hr class="my-1">
         <p>{{ blog.pub_date }}</p>
         <br>
+        {% if user.username == blog.blog_author.username %}
+        <p class="lead">
+        <a class="btn btn-primary btn-lg" href="/blog/edit/{{blog.id}}" role="button">Edit</a>
+        <a class="btn btn-primary btn-lg" href="/blog/delete/{{blog.id}}" role="button">Delete</a>
+        </p>
+        {% endif %}
       </div>
     {% endfor %}
 {% else %}
-    <p>No polls are available.</p>
+  <div class="container text-left">
+    <p>No blogs are available.</p>
+  </div>
 {% endif %}
+

@@ -1,7 +1,7 @@
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 
 <div class="container">
   <div class="jumbotron">
@@ -18,9 +18,20 @@
   </div>
 </div>
 
+{% if authors %}
+<div class="container text-left">
+    <select id='authors'>
+      <option value="">Select author</option>
+      {% for author in authors %}
+      <option value="{{ author|lower }}">{{ author }}</option>
+      {% endfor %}
+    </select>
+</div>
+{% endif %}
+
 {% if blogs %}
     {% for blog in blogs %}
-      <div class="container text-left">
+      <div class="container text-left {{ blog.blog_author.username|lower }}">
         <h3>{{ blog.blog_title }}</h3>
         <h4>Author: {{ blog.blog_author.username }}</h4>
         <hr class="my-3">
@@ -42,3 +53,49 @@
   </div>
 {% endif %}
 
+{# from https://stackoverflow.com/a/24849350/5217293 #}
+<script>
+    var sel = document.getElementById("authors");
+
+    {# find the selected author when chagned. Show all blogs from that author, hide all others #}
+    sel.addEventListener('change', () => {
+        'use strict';
+        var sel = document.getElementById("authors");
+        var selectedIndex = sel.selectedIndex;
+        var displayAuthor = sel.options[selectedIndex].value;
+        if (selectedIndex === 0)
+        {
+            {# if we changed back to the default, show all blogs #}
+            for(var i = 1; i < sel.options.length; ++i)
+            {
+                var blogs = document.getElementsByClassName(sel.options[i].value);
+                for(var j = 0; j < blogs.length; ++j)
+                {
+                    blogs[j].style.display = 'block';
+                }
+            }
+        }
+        else
+        {
+            for(var i = 1; i < sel.options.length; ++i)
+            {
+                var blogs = document.getElementsByClassName(sel.options[i].value);
+                var displayStyle = '';
+                if (i === selectedIndex)
+                {
+                    console.log('showing ' + sel.options[i].value);
+                    displayStyle = 'block';
+                }
+                else
+                {
+                    console.log('hidding ' + sel.options[i].value);
+                    displayStyle = 'none';
+                }
+                for(var j = 0; j < blogs.length; ++j)
+                {
+                    blogs[j].style.display = displayStyle;
+                }
+            }
+        }
+    });
+</script>

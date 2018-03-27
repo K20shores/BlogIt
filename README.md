@@ -10,4 +10,4 @@ Login app:
 Home app:
  - 4 hours
 Blog app:
- - 1 hour
+ - 4 hours

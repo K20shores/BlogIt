@@ -10,4 +10,8 @@ class BlogPost(models.Model):
     blog_author = models.ForeignKey(User, unique=False, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.blog_title + " (" + self.pub_date.strftime("%Y-%m-%d %H:%M:%S") + ")"
+        return self.blog_title + " (" + self.pub_date.strftime("%Y-%m-%d %H:%M:%S") + ")" + " // " + self.blog_text[:30] + "..."
+
+    def author(self):
+        return self.blog_author.username
+

@@ -12,7 +12,6 @@ def save_blog(request):
     blog_title = request.POST.get('blog_title', None)
     blog_text = request.POST.get('blog_text', None)
     blog_id = request.POST.get('blog_id', None)
-    print("blog id: {0}\nblog text: {1}".format(blog_id, blog_text))
     if blog_id is not None:
         blog_post = get_object_or_404(BlogPost, pk=blog_id)
         blog_post.blog_title = blog_title

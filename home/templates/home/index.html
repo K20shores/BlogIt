@@ -1,101 +1,48 @@
-{% load static %}
+{% extends 'base.html' %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-
-<div class="container">
-  <div class="jumbotron">
-    <h1 class="display-4">BlogIt</h1>
-    <hr class="my-4">
-    {% if user %}
-    <a class="btn btn-primary btn-lg" href="/login/blog_logout" role="button">Logout {{ user.username }}</a>
+{% block headerbutton %}
+  {% if user %}
     <a class="btn btn-primary btn-lg" href="/blog/" role="button">Create Blog</a>
-    {% else %}
+    <a class="btn btn-primary btn-lg" href="/login/blog_logout" role="button">Logout {{ user.username }}</a>
+  {% else %}
     <p class="lead">
       <a class="btn btn-primary btn-lg" href="/login" role="button">Login</a>
     </p>
-    {% endif %}
-  </div>
-</div>
+  {% endif %}
+{% endblock %}
 
-{% if authors %}
-<div class="container text-left">
-    <select id='authors'>
-      <option value="">Select author</option>
-      {% for author in authors %}
-      <option value="{{ author|lower }}">{{ author }}</option>
-      {% endfor %}
-    </select>
-</div>
-{% endif %}
-
-{% if blogs %}
-    {% for blog in blogs %}
-      <div class="container text-left {{ blog.blog_author.username|lower }}">
-        <h3>{{ blog.blog_title }}</h3>
-        <h4>Author: {{ blog.blog_author.username }}</h4>
-        <hr class="my-3">
-        <p>{{ blog.blog_text }}</p>
-        <hr class="my-1">
-        <p>{{ blog.pub_date }}</p>
-        <br>
-        {% if user.username == blog.blog_author.username %}
-        <p class="lead">
-        <a class="btn btn-primary btn-lg" href="/blog/edit/{{blog.id}}" role="button">Edit</a>
-        <a class="btn btn-primary btn-lg" href="/blog/delete/{{blog.id}}" role="button">Delete</a>
-        </p>
-        {% endif %}
-      </div>
-    {% endfor %}
-{% else %}
+{% block content %}
+  {% if authors %}
   <div class="container text-left">
-    <p>No blogs are available.</p>
+      <select id='authors'>
+        <option value="">Select author</option>
+        {% for author in authors %}
+        <option value="{{ author|lower }}">{{ author }}</option>
+        {% endfor %}
+      </select>
   </div>
-{% endif %}
-
-{# from https://stackoverflow.com/a/24849350/5217293 #}
-<script>
-    var sel = document.getElementById("authors");
-
-    {# find the selected author when chagned. Show all blogs from that author, hide all others #}
-    sel.addEventListener('change', () => {
-        'use strict';
-        var sel = document.getElementById("authors");
-        var selectedIndex = sel.selectedIndex;
-        var displayAuthor = sel.options[selectedIndex].value;
-        if (selectedIndex === 0)
-        {
-            {# if we changed back to the default, show all blogs #}
-            for(var i = 1; i < sel.options.length; ++i)
-            {
-                var blogs = document.getElementsByClassName(sel.options[i].value);
-                for(var j = 0; j < blogs.length; ++j)
-                {
-                    blogs[j].style.display = 'block';
-                }
-            }
-        }
-        else
-        {
-            for(var i = 1; i < sel.options.length; ++i)
-            {
-                var blogs = document.getElementsByClassName(sel.options[i].value);
-                var displayStyle = '';
-                if (i === selectedIndex)
-                {
-                    console.log('showing ' + sel.options[i].value);
-                    displayStyle = 'block';
-                }
-                else
-                {
-                    console.log('hidding ' + sel.options[i].value);
-                    displayStyle = 'none';
-                }
-                for(var j = 0; j < blogs.length; ++j)
-                {
-                    blogs[j].style.display = displayStyle;
-                }
-            }
-        }
-    });
-</script>
+  {% endif %}
+  {% if blogs %}
+      {% for blog in blogs %}
+        <div class="container text-left {{ blog.blog_author.username|lower }} blog">
+          <h3>{{ blog.blog_title }}</h3>
+          <h4>Author: {{ blog.blog_author.username }}</h4>
+          <hr class="my-3">
+          <p>{{ blog.blog_text }}</p>
+          <hr class="my-1">
+          <p>{{ blog.pub_date }}</p>
+          <br>
+          {% if user.username == blog.blog_author.username %}
+          <p class="lead">
+          <a class="btn btn-primary btn-lg" href="/blog/edit/{{blog.id}}" role="button">Edit</a>
+          <a class="btn btn-primary btn-lg" href="/blog/delete/{{blog.id}}" role="button">Delete</a>
+          </p>
+          {% endif %}
+        </div>
+      {% endfor %}
+  {% else %}
+    <div class="container text-left">
+      <p>No blogs are available.</p>
+    </div>
+  {% endif %}
+{% endblock %}

@@ -11,3 +11,5 @@ Home app:
  - 4 hours
 Blog app:
  - 4 hours
+Research for AJAX and filtering blogs/implementing:
+ - 6 hours

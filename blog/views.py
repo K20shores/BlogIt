@@ -17,11 +17,9 @@ def save_blog(request):
         blog_post.blog_title = blog_title
         blog_post.blog_text = blog_text
         blog_post.pub_date = timezone.now()
-        print(blog_post)
         blog_post.save()
     else:
         blog_post = BlogPost(blog_title=blog_title, blog_text=blog_text, pub_date=timezone.now(), blog_author=request.user)
-        print(blog_post)
         blog_post.save()
     return redirect('/')
 

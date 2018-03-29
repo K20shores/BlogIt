@@ -24,19 +24,18 @@
   {% endif %}
   {% if blogs %}
       {% for blog in blogs %}
-        <div class="container text-left {{ blog.blog_author.username|lower }} blog">
+        <div class="container {{ blog.blog_author.username|lower }} blog">
           <h3>{{ blog.blog_title }}</h3>
-          <h4>Author: {{ blog.blog_author.username }}</h4>
           <hr class="my-3">
           <p>{{ blog.blog_text }}</p>
           <hr class="my-1">
-          <p>{{ blog.pub_date }}</p>
+          <p><strong>{{ blog.blog_author.username }}</strong> {{ blog.pub_date }}</p>
           <br>
           {% if user.username == blog.blog_author.username %}
-          <p class="lead">
-          <a class="btn btn-primary btn-lg" href="/blog/edit/{{blog.id}}" role="button">Edit</a>
-          <a class="btn btn-primary btn-lg" href="/blog/delete/{{blog.id}}" role="button">Delete</a>
-          </p>
+            <p class="lead">
+              <a class="btn btn-primary btn-lg" href="/blog/edit/{{blog.id}}" role="button">Edit</a>
+              <a class="btn btn-primary btn-lg" href="/blog/delete/{{blog.id}}" role="button">Delete</a>
+            </p>
           {% endif %}
         </div>
       {% endfor %}
@@ -46,3 +45,4 @@
     </div>
   {% endif %}
 {% endblock %}
+

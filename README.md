@@ -1,6 +1,7 @@
 # BlogIt
 -----
-To install:
+To launch the webpage:
+
 `git clone https://github.com/K20shores/BlogIt.git`
 
 `cd BlogIt`

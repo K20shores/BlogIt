@@ -14,7 +14,7 @@ To launch the webpage:
 
 To view the website on a mobile device:
 - determine your machine's local ip address
-- open the `blogit/settings.py` file and add your ip address to the `ALLOWED\_HOSTS` list, enclosed with quotes
+- open the `blogit/settings.py` file and add your ip address to the `ALLOWED_HOSTS` list, enclosed with quotes
 - run `python3 manage.py runserver <your_ip_address>:8000`
 - On your machine or on your mobile device, navigate to <your_ip_address>:8000
 

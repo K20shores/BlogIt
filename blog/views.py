@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
 from django.utils import timezone
 
 from blog.models import BlogPost
@@ -32,3 +33,27 @@ def delete(request, blog_id):
     blog.delete()
     return redirect('/')
 
+def get_blogs(request):
+    props = get_blog_data()
+    if request.user.is_authenticated:
+        props['logged_in'] = request.user.username
+    else:
+        props['logged_in'] = None
+    return JsonResponse(props)
+
+def get_blog_data():
+    blogs = make_blogs_array(BlogPost.objects.order_by('-pub_date'))
+    authors = list(set([b['blog_author'] for b in blogs][::-1]))
+    authors = [{'name' : author, 'value' : author.lower()} for author in authors]
+    return {'blogs' : blogs, 'authors' : authors}
+
+def make_blogs_array(blogs):
+    b = []
+    for blog in blogs:
+        b.append({'blog_title' : blog.blog_title,
+         'blog_author' : blog.blog_author,
+         'blog_text' : blog.blog_text,
+         'pub_date' : blog.pub_date.strftime("%Y-%m-%d %H:%M:%S"),
+         'class' : blog.blog_author.lower(),
+        })
+    return b

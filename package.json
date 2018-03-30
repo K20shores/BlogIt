@@ -17,6 +17,7 @@
     "gulp": "gulp"
   },
   "devDependencies": {
+    "axios": "^0.18.0",
     "babel-plugin-react-html-attrs": "^2.1.0",
     "babel-preset-es2015": "^6.24.1",
     "babelify": "^8.0.0",

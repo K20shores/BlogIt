@@ -15,14 +15,11 @@
       {% csrf_token %}
       {% if blog %}
         <label> Title:</label> <input type="text" name="blog_title" placeholder="username" value="{{ blog.blog_title }}" required><br>
-        <textarea rows="10" cols="100" maxlength="1000" name="blog_text" required>
-          {{ blog.blog_text }}
-        </textarea>
+        <textarea rows="10" cols="100" maxlength="1000" name="blog_text" required>{{ blog.blog_text }}</textarea>
         <input type="hidden" name="blog_id" value="{{ blog.id }}">
       {% else %}
         <label> Title:</label> <input type="text" name="blog_title" placeholder="username" required><br>
-        <textarea rows="10" cols="100" maxlength="1000" name="blog_text" required>
-        </textarea>
+        <textarea rows="10" cols="100" maxlength="1000" name="blog_text" required></textarea>
       {% endif %}
       <div>
         <input type="submit" name="submit">

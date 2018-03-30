@@ -37,6 +37,7 @@ body{
 
 /* based on https://stackoverflow.com/a/11681331/5217293 */
 .blog {
+  margin: auto;
   width: 40%;
   margin-top: 5px;
   margin-bottom: 5px;

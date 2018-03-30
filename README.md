@@ -6,9 +6,29 @@ To launch the webpage:
 
 `cd BlogIt`
 
+[Install python3 from the website](https://www.python.org/) or through your favorite package manager
+
+`pip3 install virtualenv`
+
+`python3 -m venv myenv`
+
+On macOS/Linux run:
+
+`source myenv/bin/activate`
+
+On windows run
+
+`myvenv\Scripts\activate`
+
+Install the required python packages
+
+`pip install bleach django psycopg2`
+
+`npm run build`
+
 `npm install`
 
-`python3 manage.py runserver`
+`npm start`
 
 [navigate to the local host on port 8000](http://127.0.0.1:8000/)
 

@@ -9,11 +9,8 @@
     "reactjs": "^1.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "gulp": "gulp"
+    "start": "python3 manage.py runserver",
+    "build": "browserify src/index.js -o static/js/bundle.js -t [ babelify --presets [ env react ] ]"
   },
   "devDependencies": {
     "axios": "^0.18.0",

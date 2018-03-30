@@ -17,7 +17,7 @@
         <textarea rows="10" cols="100" maxlength="1000" name="blog_text" required>{{ blog.blog_text }}</textarea>
         <input type="hidden" name="blog_id" value="{{ blog.id }}">
       {% else %}
-        <label> Title:</label> <input type="text" name="blog_title" placeholder="username" required><br>
+        <label> Title:</label> <input type="text" name="blog_title" placeholder="Blog Title" required><br>
         <textarea rows="10" cols="100" maxlength="1000" name="blog_text" required></textarea>
       {% endif %}
       <div>

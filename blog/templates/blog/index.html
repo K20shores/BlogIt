@@ -3,7 +3,6 @@
 {% block headerbutton %}
   <a class="btn btn-primary btn-lg" href="/" role="button">Home</a>
   {% if user %}
-    <a class="btn btn-primary btn-lg" href="/blog/" role="button">Create Blog</a>
     <a class="btn btn-primary btn-lg" href="/login/blog_logout" role="button">Logout {{ user.username }}</a>
   {% endif %}
 {% endblock %}
@@ -14,7 +13,7 @@
     <form class="form-style" action="{% url 'save_blog' %}" method="post">
       {% csrf_token %}
       {% if blog %}
-        <label> Title:</label> <input type="text" name="blog_title" placeholder="username" value="{{ blog.blog_title }}" required><br>
+        <label> Title:</label> <input type="text" name="blog_title" placeholder="Blog Title" value="{{ blog.blog_title }}" required><br>
         <textarea rows="10" cols="100" maxlength="1000" name="blog_text" required>{{ blog.blog_text }}</textarea>
         <input type="hidden" name="blog_id" value="{{ blog.id }}">
       {% else %}

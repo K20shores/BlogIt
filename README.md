@@ -1,5 +1,8 @@
 # BlogIt
+=====
+A small blogging project, intended for review by FrogSlayer LLC
 -----
+
 To launch the webpage:
 
 `git clone https://github.com/K20shores/BlogIt.git`
@@ -41,7 +44,6 @@ To view the website on a mobile device:
 When you are done viewing the website type `deactivate` to close the python virutal environment.
 
 -----
-A small blogging project, intended for review by FrogSlayer LLC
 
 Django tutorial:
  - 8 hours

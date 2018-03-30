@@ -38,6 +38,8 @@ To view the website on a mobile device:
 - run `python3 manage.py runserver <your_ip_address>:8000`
 - On your machine or on your mobile device, navigate to <your_ip_address>:8000
 
+When you are done viewing the website type `deactivate` to close the python virutal environment.
+
 -----
 A small blogging project, intended for review by FrogSlayer LLC
 

@@ -32,7 +32,7 @@ Install the required python packages
 
 `npm start`
 
-[navigate to the local host on port 8000](http://127.0.0.1:8000/)
+[navigate to the localhost on port 8000](http://127.0.0.1:8000/)
 
 To view the website on a mobile device:
 - determine your machine's local ip address

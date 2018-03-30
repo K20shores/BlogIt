@@ -19340,23 +19340,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function NoBlogsAvailable() {
-    return _react2.default.createElement(
-        'p',
-        { className: 'lead' },
-        _react2.default.createElement(
-            'a',
-            { className: 'btn btn-primary btn-lg', href: '/blog/edit/{blog.id}', role: 'button' },
-            'Edit'
-        ),
-        _react2.default.createElement(
-            'a',
-            { className: 'btn btn-primary btn-lg', href: '/blog/delete/{blog.id}', role: 'button' },
-            'Delete'
-        )
-    );
-}
-
 var Blog = function (_Component) {
     _inherits(Blog, _Component);
 
@@ -19367,7 +19350,8 @@ var Blog = function (_Component) {
 
         _this.state = {
             blogs: props.blogs,
-            authors: props.authors
+            authors: props.authors,
+            user: props.logged_in
         };
         return _this;
     }
@@ -19375,7 +19359,10 @@ var Blog = function (_Component) {
     _createClass(Blog, [{
         key: 'render',
         value: function render() {
-            return _react2.default.createElement(
+            var _this2 = this;
+
+            var hasBlogs = this.state.blogs.length === 0 ? false : true;
+            return hasBlogs ? _react2.default.createElement(
                 'div',
                 { className: 'container text-left' },
                 _react2.default.createElement(
@@ -19422,15 +19409,33 @@ var Blog = function (_Component) {
                             ' ',
                             blog.pub_date
                         ),
+                        _this2.state.user == blog.blog_author && _react2.default.createElement(
+                            'a',
+                            { className: 'btn btn-primary btn-lg', href: "/blog/edit/" + blog.id, role: 'button' },
+                            'Edit'
+                        ),
+                        _this2.state.user == blog.blog_author && _react2.default.createElement(
+                            'a',
+                            { className: 'btn btn-primary btn-lg', href: "/blog/delete/" + blog.id, role: 'button' },
+                            'Delete'
+                        ),
                         _react2.default.createElement('br', { key: "br" + index })
                     );
                 })
+            ) : _react2.default.createElement(
+                'div',
+                { className: 'container text-left' },
+                _react2.default.createElement(
+                    'p',
+                    null,
+                    'No blogs are available.'
+                )
             );
         }
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
-            var _this2 = this;
+            var _this3 = this;
 
             (function () {
                 setInterval(function () {
@@ -19438,7 +19443,8 @@ var Blog = function (_Component) {
                         console.log(response.data);
                         var authors = response.data.authors;
                         var blogs = response.data.blogs;
-                        _this2.setState({ blogs: blogs, authors: authors });
+                        var user = response.data.logged_in;
+                        _this3.setState({ blogs: blogs, authors: authors, user: user });
                     });
                 }, 500);
             })();
@@ -19449,11 +19455,7 @@ var Blog = function (_Component) {
 }(_react.Component);
 
 function BlogView(props) {
-    var hasBlogs = props.blogs.length !== 0 ? true : false;
-    if (hasBlogs) {
-        return _react2.default.createElement(Blog, { authors: props.authors, blogs: props.blogs });
-    }
-    return _react2.default.createElement(NoBlogsAvailable, null);
+    return _react2.default.createElement(Blog, { authors: props.authors, blogs: props.blogs });
 }
 
 _reactDom2.default.render(_react2.default.createElement(BlogView, window.props), window.react_mount // a reference to the #react div that we render to

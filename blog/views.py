@@ -55,5 +55,6 @@ def make_blogs_array(blogs):
          'blog_text' : blog.blog_text,
          'pub_date' : blog.pub_date.strftime("%Y-%m-%d %H:%M:%S"),
          'class' : blog.blog_author.lower(),
+         'id' : blog.pk
         })
     return b

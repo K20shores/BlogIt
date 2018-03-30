@@ -2,34 +2,28 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom'
 import axios from 'axios';
 
-function NoBlogsAvailable() {
-    return (
-        <p class="lead">
-          <a class="btn btn-primary btn-lg" href="/blog/edit/{blog.id}" role="button">Edit</a>
-          <a class="btn btn-primary btn-lg" href="/blog/delete/{blog.id}" role="button">Delete</a>
-        </p>
-    );
-}
-
 class Blog extends Component {
     constructor(props){
         super(props);
         this.state = {
             blogs: props.blogs,
             authors: props.authors,
+            user: props.logged_in,
         }
     }
 
     render() {
+        const hasBlogs = this.state.blogs.length === 0 ? false : true;
         return (
-            <div class="container text-left">
-                <select id='authors'>
-                  <option value="">Select author</option>
-                  {this.state.authors.map((author, index) =>
-                    <option value={ author.value } key={ index }>{ author.name } </option>
-                  )}
-                </select>
-                {this.state.blogs.map((blog, index) =>
+            hasBlogs ? (
+                <div class="container text-left">
+                  <select id='authors'>
+                    <option value="">Select author</option>
+                    {this.state.authors.map((author, index) =>
+                      <option value={ author.value } key={ index }>{ author.name } </option>
+                    )}
+                  </select>
+                  {this.state.blogs.map((blog, index) =>
                     <div class={ blog.class + " blog"} key={ index }>
                       <h3 key = {"header" + index}>{blog.blog_title}</h3>
                       <hr class="my-3" key={"hrule-1" + index}/>
@@ -38,12 +32,23 @@ class Blog extends Component {
                       <p key={"p-2" + index}>
                           <strong key={"strong" + index}>{blog.blog_author}</strong> {blog.pub_date}
                       </p>
+                      {this.state.user == blog.blog_author &&
+                      <a class="btn btn-primary btn-lg" href={ "/blog/edit/" + blog.id} role="button">Edit</a>
+                      }
+                      {this.state.user == blog.blog_author &&
+                      <a class="btn btn-primary btn-lg" href={ "/blog/delete/" + blog.id} role="button">Delete</a>
+                      }
                       <br key={"br" + index}/>
-                  </div>
-                )}
-            </div>
-        );
-    }
+                    </div>
+                    )}
+                </div> 
+                ) :
+                (
+                <div class="container text-left">
+                    <p>No blogs are available.</p>
+                </div>
+                )
+        ); }
 
     componentDidMount() {
         (() => {
@@ -52,7 +57,8 @@ class Blog extends Component {
                     console.log(response.data);
                     const authors = response.data.authors;
                     const blogs = response.data.blogs;
-                    this.setState({blogs, authors});
+                    const user = response.data.logged_in;
+                    this.setState({blogs, authors, user});
                 });
             }, 500);
         })();
@@ -61,12 +67,7 @@ class Blog extends Component {
 
 function BlogView(props)
 {
-    const hasBlogs = props.blogs.length !== 0 ? true : false;
-    if (hasBlogs)
-    {
-        return <Blog authors={props.authors} blogs={props.blogs} />;
-    }
-    return <NoBlogsAvailable />;
+    return <Blog authors={props.authors} blogs={props.blogs} />;
 }
 
 ReactDOM.render(

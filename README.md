@@ -24,9 +24,9 @@ Install the required python packages
 
 `pip install bleach django psycopg2`
 
-`npm run build`
-
 `npm install`
+
+`npm run build`
 
 `npm start`
 

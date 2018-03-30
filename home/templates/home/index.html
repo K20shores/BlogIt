@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load json_filter %}
 
 {% block headerbutton %}
   {% if user %}
@@ -11,38 +12,13 @@
   {% endif %}
 {% endblock %}
 
+{# connection to react based off of: https://hackernoon.com/reconciling-djangos-mvc-templates-with-react-components-3aa986cf510a #}
 {% block content %}
-  {% if authors %}
-  <div class="container text-left">
-      <select id='authors'>
-        <option value="">Select author</option>
-        {% for author in authors %}
-        <option value="{{ author|lower }}">{{ author }}</option>
-        {% endfor %}
-      </select>
+  <div id="react">
   </div>
-  {% endif %}
-  {% if blogs %}
-      {% for blog in blogs %}
-        <div class="container {{ blog.blog_author.username|lower }} blog">
-          <h3>{{ blog.blog_title }}</h3>
-          <hr class="my-3">
-          <p>{{ blog.blog_text }}</p>
-          <hr class="my-1">
-          <p><strong>{{ blog.blog_author.username }}</strong> {{ blog.pub_date }}</p>
-          <br>
-          {% if user.username == blog.blog_author.username %}
-            <p class="lead">
-              <a class="btn btn-primary btn-lg" href="/blog/edit/{{blog.id}}" role="button">Edit</a>
-              <a class="btn btn-primary btn-lg" href="/blog/delete/{{blog.id}}" role="button">Delete</a>
-            </p>
-          {% endif %}
-        </div>
-      {% endfor %}
-  {% else %}
-    <div class="container text-left">
-      <p>No blogs are available.</p>
-    </div>
-  {% endif %}
+  <script>
+    window.props = {{props|json}};
+    window.react_mount = document.getElementById('react');
+  </script>
+  <script src="/static/{{component}}"></script>
 {% endblock %}
-

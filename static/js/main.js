@@ -1,5 +1,3 @@
-// the webpage needs to dynamically load new changes to the webpage
-
 var sel = document.getElementById("authors");
 
 // find the selected author when chagned. Show all blogs from that author, hide all others

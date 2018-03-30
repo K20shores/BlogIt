@@ -62,6 +62,9 @@ Blog app:
 Research for React.js/AJAX and filtering blogs/implementing:
  - 16 hours
 
+Total time:
+ - 40 hours
+
 -----
 List of items that I attempted:
 - #1, I used bootstrap's div classes to try to enable resizing of the webpage
